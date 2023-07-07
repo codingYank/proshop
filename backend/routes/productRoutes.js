@@ -19,9 +19,9 @@ router.get(
 
     if (product) {
       return res.json(product)
+    } else {
+      throw new Error("Resource not found")
     }
-
-    res.status(404).json({ massage: "Product not found" })
   })
 )
 
