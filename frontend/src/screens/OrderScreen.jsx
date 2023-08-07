@@ -63,12 +63,6 @@ const OrderScreen = () => {
     })
   }
 
-  async function onApproveTest() {
-    await payOrder({orderId, details: {payer: {}}})
-    refetch()
-    toast.success('Payment successful')
-  }
-
   function onError(err) {
     toast.error(err.message)
   }
@@ -207,7 +201,7 @@ const OrderScreen = () => {
                     )}
                   </ListGroup.Item>
                 )}
-                { isLoading && <Loader />}
+                { loadingDeliver && <Loader />}
                 { userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <ListGroup.Item>
                     <Button type="button" className="btn btn-block" onClick={deliverOrderHandler}> Mark as Delivered</Button>
