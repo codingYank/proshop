@@ -96,7 +96,7 @@ const OrderScreen = () => {
     <Message variant='danger' />
     ) : (
       <>
-        <h1>Order {order._id}</h1>
+        <h1>{order.isPaid ? (`Order ${order._id}`) : ('Pay Order')}</h1>
         <Row>
           <Col md={8}>
             <ListGroup variant="flush">
@@ -112,11 +112,12 @@ const OrderScreen = () => {
                   <strong>Address: </strong>
                   {order.shippingAddress.address}, {order.shippingAddress.city} {order.shippingAddress.postalCode} {order.shippingAddress.country}
                 </p>
-                { order.isDelivered ? (
+                { order.isDelivered && (
                   <Message variant='success'>
                     Delivered on {order.deliveredAt}
                   </Message>
-                ) : (
+                )}
+                { order.isPaid && !order.isDelivered && (
                   <Message variant='danger'>
                     Not Delivered
                   </Message>
@@ -128,13 +129,9 @@ const OrderScreen = () => {
                   <strong>Method: </strong>
                   {order.paymentMethod}
                 </p>
-                { order.isPaid ? (
+                { order.isPaid && (
                   <Message variant='success'>
                     Paid on {order.paidAt}
-                  </Message>
-                ) : (
-                  <Message variant='danger'>
-                    Not Paid
                   </Message>
                 )}
               </ListGroup.Item>
